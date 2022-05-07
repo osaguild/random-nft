@@ -39,7 +39,7 @@ export default {
         { text: "speech", value: "speech" },
         { text: "angkor", value: "angkor" },
       ],
-      speech: ["agenda 1","agenda 2","agenda 3","agenda 4","agenda5"],
+      speech: ["agenda 1","agenda 2","agenda 3","agenda 4","agenda 5"],
       speeches: [],
     };
   },
