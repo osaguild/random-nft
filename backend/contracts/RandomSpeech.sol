@@ -18,14 +18,14 @@ contract RandomSpeech {
     mapping(uint256 => bool) private _isAngkor;
 
     // register speech
-    function registerSpeech(address _address, string[] memory _speech) external {
+    function registerSpeech(address _address, uint256 _total, string[] memory _speech) external {
         // increament token id
         _currentTokenId.increment();
         uint256 _tokenId = _currentTokenId.current();
 
         // decide random agenda
         RandomNumber rnInstance = RandomNumber(_address);
-        uint256 index = rnInstance.getRandomNumber(10, _speech.length);
+        uint256 index = rnInstance.getRandomNumber(_total, _speech.length);
 
         // register speech_
         for (uint256 _i = 0; _i < _speech.length; _i++) {

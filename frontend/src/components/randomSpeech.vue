@@ -30,7 +30,7 @@ export default {
       rsAddress: process.env.VUE_APP_RANDOM_SPEECH_ADDRESS,
       rnAddress: process.env.VUE_APP_RANDOM_NUMBER_ADDRESS,
       rsAbi: [
-        "function registerSpeech(address _address, string[] memory _speech) external",
+        "function registerSpeech(address _address, uint256 _total, string[] memory _speech) external",
         "function angkor(uint256 _tokenId) external",
         "function getSpeech(uint256 _tokenId) external view returns (string[] memory)",
         "event RegisterSpeech(uint256 _tokenId, string[] _originSpeech, string[] _ramdomSpeech, bool _isAngkor)",
@@ -59,7 +59,12 @@ export default {
           provider
         );
         const rsWithSigner = rsInstance.connect(signer);
-        const tx = await rsWithSigner.registerSpeech(this.rnAddress, this.speech);
+        const random = Math.floor(Math.random() * 10);
+        const tx = await rsWithSigner.registerSpeech(
+          this.rnAddress,
+          random,
+          this.speech
+        );
         console.log("transaction", tx);
       } catch (error) {
         console.log("failed to send transaction", error);

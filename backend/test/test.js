@@ -59,7 +59,7 @@ contract("Random Speech", (accounts) => {
   it("register speech", async () => {
 
     // register speech
-    await rsInstance.registerSpeech(rnInstance.address, originSpeech);
+    await rsInstance.registerSpeech(rnInstance.address, 10, originSpeech);
 
     // check registered speech
     await rsInstance.getSpeech(1).then(speech => {
