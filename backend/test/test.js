@@ -1,8 +1,10 @@
 const ERC721 = artifacts.require("RandomSpeechERC721");
 const RandomSpeech = artifacts.require("RandomSpeech");
+const RandomNumber = artifacts.require("RandomNumber");
 
 let erc721Instance;
 let rsInstance;
+let rnInstance;
 
 const baseURL = "https://osaguild.com/";
 const originSpeech = [
@@ -31,6 +33,10 @@ contract("Random Speech", (accounts) => {
     // RandomSpeech
     rsInstance = await RandomSpeech.deployed();
     assert(rsInstance.address, "deploy of RandomSpeech is failed");
+
+    // RandomNumber
+    rnInstance = await RandomNumber.deployed();
+    assert(rnInstance.address, "deploy of RandomNumber is failed");
 
   });
 
@@ -88,4 +94,19 @@ contract("Random Speech", (accounts) => {
     });
 
   });
+
+  it("get random number", async () => {
+
+    // get and check random number speech
+    await rnInstance.getRandomNumber(5, 3).then(random => {
+      assert.equal(random, 2, `random number is not 2`);
+    });
+
+    // get and check random number speech
+    await rnInstance.getRandomNumber(10, 5).then(random => {
+      assert.equal(random, 0, `random number is not 0`);
+    });
+
+  });
+
 });
