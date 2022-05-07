@@ -24,7 +24,7 @@
 import { ethers } from "ethers";
 
 export default {
-  name: "App",
+  name: "RandomSpeech",
   data() {
     return {
       rsAddress: process.env.VUE_APP_RANDOM_SPEECH_ADDRESS,
