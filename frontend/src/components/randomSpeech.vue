@@ -1,9 +1,13 @@
 <template>
   <v-container>
-    <v-text-field v-model="speech" label="speech" required></v-text-field>
+    <v-text-field v-model="speech[0]" label="agenda" required></v-text-field>
+    <v-text-field v-model="speech[1]" label="agenda" required></v-text-field>
+    <v-text-field v-model="speech[2]" label="agenda" required></v-text-field>
+    <v-text-field v-model="speech[3]" label="agenda" required></v-text-field>
+    <v-text-field v-model="speech[4]" label="agenda" required></v-text-field>
     <v-btn @click="registerSpeech">register speech</v-btn>
     <v-data-table
-      :headers="speechHeaders"
+      :headers="headers"
       :items="speeches"
       :items-per-page="10"
       class="elevation-1"
@@ -23,23 +27,24 @@ export default {
   name: "App",
   data() {
     return {
-      speech: null,
-      rsAddress: "0x0e6C71de731FCCef16EA2bD2D1676B56159BC18D",
+      rsAddress: process.env.VUE_APP_RANDOM_SPEECH_ADDRESS,
       rsAbi: [
-        "function registerSpeech(string memory _speech) external",
+        "function registerSpeech(string[] memory _speech) external",
         "function angkor(uint256 _tokenId) external",
-        "function getSpeech(uint256 _tokenId) external view returns (string memory)",
-        "event RegisterSpeech(uint256 _tokenId,string _originSpeech,string _ramdomSpeech,bool _isAngkor)",
+        "function getSpeech(uint256 _tokenId) external view returns (string[] memory)",
+        "event RegisterSpeech(uint256 _tokenId, string[] _originSpeech, string[] _ramdomSpeech, bool _isAngkor)",
       ],
-      speechHeaders: [
+      headers: [
         { text: "token id", value: "tokenId" },
         { text: "speech", value: "speech" },
         { text: "angkor", value: "angkor" },
       ],
+      speech: ["agenda 1","agenda 2","agenda 3","agenda 4","agenda5"],
       speeches: [],
     };
   },
   mounted: async function () {
+    console.log("random speech address: " + this.rsAddress);
     await this.getSpeeches();
   },
   methods: {
@@ -72,7 +77,7 @@ export default {
           const speech = await rsInstance.getSpeech(i);
           this.speeches.push({
             tokenId: i,
-            speech: speech,
+            speech: speech[0],
             angkor: i,
           });
         }
