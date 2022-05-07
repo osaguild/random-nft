@@ -16,6 +16,11 @@ contract RandomSpeech {
     mapping(uint256 => string[]) private _originSpeech;
     mapping(uint256 => string[]) private _randomSpeech;
     mapping(uint256 => bool) private _isAngkor;
+    string[] private _randomAgenda = [
+        "what is your hobby?",
+        "what program language do you like?"
+        "what is your dream job?"
+    ];
 
     // register speech
     function registerSpeech(address _address, uint256 _total, string[] memory _speech) external {
@@ -25,13 +30,14 @@ contract RandomSpeech {
 
         // decide random agenda
         RandomNumber rnInstance = RandomNumber(_address);
-        uint256 index = rnInstance.getRandomNumber(_total, _speech.length);
+        uint256 _random1 = rnInstance.getRandomNumber(_total, _speech.length);
+        uint256 _random2 = rnInstance.getRandomNumber(_total, _randomAgenda.length);
 
         // register speech_
         for (uint256 _i = 0; _i < _speech.length; _i++) {
             _originSpeech[_tokenId].push(_speech[_i]);
-            if (_i == index) {
-                _randomSpeech[_tokenId].push("random agenda");
+            if (_i == _random1) {
+                _randomSpeech[_tokenId].push(_randomAgenda[_random2]);
             } else {
                 _randomSpeech[_tokenId].push(_speech[_i]);
             }

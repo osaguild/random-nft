@@ -63,7 +63,7 @@ contract("Random Speech", (accounts) => {
 
     // check registered speech
     await rsInstance.getSpeech(1).then(speech => {
-      assert.equal(speech[0], "random agenda", `speech is not random agenda`);
+      assert.equal(speech[0], "what is your hobby?", 'speech is not "what is your hobby"');
       assert.equal(speech[1], originSpeech[1], `speech is not ${originSpeech[1]}`);
       assert.equal(speech[2], originSpeech[2], `speech is not ${originSpeech[2]}`);
       assert.equal(speech[3], originSpeech[3], `speech is not ${originSpeech[3]}`);
