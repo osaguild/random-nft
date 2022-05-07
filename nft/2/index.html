@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <script>
+    let currentAccount;
+    const tokenId = 2;
+    const contractAddress = "0x97295a725f58539daa5815567f268386fb0ea921";
+    const abi = [
+      "function getSpeech(uint256 _tokenId) external view returns (string[] memory)",
+    ];
+
+    window.onload = async function () {
+      await connectWallet();
+      await getSpeech();
+    }
+
+    async function connectWallet() {
+      try {
+        if (!window.ethereum) {
+          alert("you need metamask to use Dapp");
+          return;
+        }
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await provider.send("eth_requestAccounts", []);
+        console.log("Connected", accounts[0]);
+        this.currentAccount = accounts[0];
+      } catch (error) {
+        console.log("reject your connection request", error);
+      }
+    }
+
+    async function getSpeech() {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const Contract = await new ethers.Contract(
+          contractAddress,
+          abi,
+          provider
+        );
+
+        const _speech = await Contract.getSpeech(tokenId);
+        document.getElementById("agenda_1").innerHTML = _speech[0];
+        document.getElementById("agenda_2").innerHTML = _speech[1];
+        document.getElementById("agenda_3").innerHTML = _speech[2];
+        document.getElementById("agenda_4").innerHTML = _speech[3];
+        document.getElementById("agenda_5").innerHTML = _speech[4];
+
+      } catch (error) {
+        console.log("failed contract", error);
+      }
+    }
+  </script>
+  <style>
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 420px;
+      height: 420px;
+      text-align: center;
+      font-size: 24px;
+      font-family: sans-serif;
+    }
+
+    #speech {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+  </style>
+  <title>Random Speech</title>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="speech">
+      <p id="agenda_1"></p>
+      <p id="agenda_2"></p>
+      <p id="agenda_3"></p>
+      <p id="agenda_4"></p>
+      <p id="agenda_5"></p>
+    </div>
+  </div>
+</body>
+
+</html>

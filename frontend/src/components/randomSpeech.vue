@@ -40,7 +40,7 @@ export default {
         { text: "speech", value: "speech" },
         { text: "angkor", value: "angkor" },
       ],
-      speech: ["agenda 1", "agenda 2", "agenda 3", "agenda 4", "agenda 5"],
+      speech: ["introduction", "about web3", "about ethereum", "about solidity", "about nft"],
       speeches: [],
     };
   },
