@@ -18,11 +18,11 @@
 import { ethers } from "ethers";
 
 export default {
-  name: "App",
+  name: "ERC721",
   data() {
     return {
       tokenURI: null,
-      erc721Address: "0x74675f68b517d150301bd71f671b271aBb0044e0",
+      erc721Address: process.env.VUE_APP_ERC721_ADDRESS,
       erc721Abi: [
         "function mint(string memory tokenURI) public returns (uint256)",
         "function ownerOf(uint256 tokenId) public view virtual override returns (address)",
@@ -37,6 +37,7 @@ export default {
     };
   },
   mounted: async function () {
+    console.log("erc721 address: " + this.erc721Address);
     await this.getTokens();
   },
   methods: {
@@ -48,7 +49,6 @@ export default {
           this.erc721Abi,
           provider
         );
-
         for (let i = 1; i <= 5; i++) {
           const owner = await erc721Instance.ownerOf(i);
           const tokenURI = await erc721Instance.tokenURI(i);
