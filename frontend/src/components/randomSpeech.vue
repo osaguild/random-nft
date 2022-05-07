@@ -77,7 +77,7 @@ export default {
           const speech = await rsInstance.getSpeech(i);
           this.speeches.push({
             tokenId: i,
-            speech: speech[0],
+            speech: speech,
             angkor: i,
           });
         }
