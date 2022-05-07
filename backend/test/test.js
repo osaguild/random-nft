@@ -5,8 +5,20 @@ let erc721Instance;
 let rsInstance;
 
 const baseURL = "https://osaguild.com/";
-const originSpeech = "speech 001";
-const randomSpeech = "random speech";
+const originSpeech = [
+  "origin agenda 1",
+  "origin agenda 2",
+  "origin agenda 3",
+  "origin agenda 4",
+  "origin agenda 5"
+];
+const randomSpeech = [
+  "random agenda",
+  "random agenda",
+  "random agenda",
+  "random agenda",
+  "random agenda"
+];
 
 contract("Random Speech", (accounts) => {
 
@@ -52,7 +64,11 @@ contract("Random Speech", (accounts) => {
 
     // check registered speech
     await rsInstance.getSpeech(1).then(speech => {
-      assert.equal(speech, randomSpeech, `speech is not ${randomSpeech}`);
+      assert.equal(speech[0], randomSpeech[0], `speech is not ${randomSpeech[0]}`);
+      assert.equal(speech[1], randomSpeech[1], `speech is not ${randomSpeech[1]}`);
+      assert.equal(speech[2], randomSpeech[2], `speech is not ${randomSpeech[2]}`);
+      assert.equal(speech[3], randomSpeech[3], `speech is not ${randomSpeech[3]}`);
+      assert.equal(speech[4], randomSpeech[4], `speech is not ${randomSpeech[4]}`);
     });
 
   });
@@ -64,7 +80,11 @@ contract("Random Speech", (accounts) => {
 
     // check angkor speech
     await rsInstance.getSpeech(1).then(speech => {
-      assert.equal(speech, originSpeech, `speech is not ${originSpeech}`);
+      assert.equal(speech[0], originSpeech[0], `speech is not ${originSpeech[0]}`);
+      assert.equal(speech[1], originSpeech[1], `speech is not ${originSpeech[1]}`);
+      assert.equal(speech[2], originSpeech[2], `speech is not ${originSpeech[2]}`);
+      assert.equal(speech[3], originSpeech[3], `speech is not ${originSpeech[3]}`);
+      assert.equal(speech[4], originSpeech[4], `speech is not ${originSpeech[4]}`);
     });
 
   });
