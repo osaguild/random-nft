@@ -3,6 +3,7 @@ pragma solidity 0.8.13;
 
 import "./RandomSpeechERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./RandomNumber.sol";
 
 //import "https://github.com/OpenZeppelin/openzeppelin-contracts/contracts/utils/Counters.sol";
 
@@ -17,15 +18,23 @@ contract RandomSpeech {
     mapping(uint256 => bool) private _isAngkor;
 
     // register speech
-    function registerSpeech(string[] memory _speech) external {
+    function registerSpeech(address _address, string[] memory _speech) external {
         // increament token id
         _currentTokenId.increment();
         uint256 _tokenId = _currentTokenId.current();
 
+        // decide random agenda
+        RandomNumber rnInstance = RandomNumber(_address);
+        uint256 index = rnInstance.getRandomNumber(10, _speech.length);
+
         // register speech_
         for (uint256 _i = 0; _i < _speech.length; _i++) {
             _originSpeech[_tokenId].push(_speech[_i]);
-            _randomSpeech[_tokenId].push("random agenda");
+            if (_i == index) {
+                _randomSpeech[_tokenId].push("random agenda");
+            } else {
+                _randomSpeech[_tokenId].push(_speech[_i]);
+            }
         }
         _isAngkor[_tokenId] = false;
 
