@@ -9,9 +9,9 @@
   <script>
     let currentAccount;
     const tokenId = 1;
-    const contractAddress = "0xBa182bFEC02B36668803493DF6Af112b39346243";
+    const contractAddress = "0x1aABAB200a7442867fE5c9C95cAC3193f630eF3B";
     const abi = [
-      "function getSpeech(uint256 _tokenId) external view returns (string memory)",
+      "function getSpeech(uint256 _tokenId) external view returns (string[] memory)",
     ];
 
     window.onload = async function () {
@@ -44,7 +44,11 @@
         );
 
         const _speech = await Contract.getSpeech(tokenId);
-        const _canvas = document.getElementById("speech").innerHTML = _speech;
+        document.getElementById("agenda_1").innerHTML = _speech[0];
+        document.getElementById("agenda_2").innerHTML = _speech[1];
+        document.getElementById("agenda_3").innerHTML = _speech[2];
+        document.getElementById("agenda_4").innerHTML = _speech[3];
+        document.getElementById("agenda_5").innerHTML = _speech[4];
 
       } catch (error) {
         console.log("failed contract", error);
@@ -60,7 +64,7 @@
       width: 420px;
       height: 420px;
       text-align: center;
-      font-size: 70px;
+      font-size: 24px;
       font-family: sans-serif;
     }
 
@@ -78,7 +82,11 @@
 <body>
   <div id="canvas">
     <div id="speech">
-      speech does not registerd yet
+      <p id="agenda_1"></p>
+      <p id="agenda_2"></p>
+      <p id="agenda_3"></p>
+      <p id="agenda_4"></p>
+      <p id="agenda_5"></p>
     </div>
   </div>
 </body>
